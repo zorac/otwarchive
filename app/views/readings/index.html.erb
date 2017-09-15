@@ -9,6 +9,9 @@
     <%= span_if_current ts('Full History'), user_readings_path(@user), params[:show].blank? %>
   </li>
   <li>
+    <%= span_if_current ts('Update Available'), user_readings_path(@user, :show => 'major-update'), params[:show] == "major-update" %>
+  </li>
+  <li>
     <%= span_if_current ts('Marked for Later'), user_readings_path(@user, :show => 'to-read'), params[:show] == "to-read" %>
   </li>
   <li>

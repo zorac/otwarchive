@@ -15,6 +15,9 @@ class ReadingsController < ApplicationController
     if params[:show] == 'to-read'
       @readings = @readings.where(toread: true)
       @page_subtitle = ts("Saved For Later")
+    elsif params[:show] == 'major-update'
+      @readings = @readings.joins(:work).where("readings.major_version_read < works.major_version")
+      @page_subtitle = ts("Update Available")
     end
     @readings = @readings.order("last_viewed DESC").page(params[:page])
   end
