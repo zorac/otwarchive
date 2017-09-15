@@ -15,6 +15,9 @@ class ReadingsController < ApplicationController
     if params[:show] == 'to-read'
       @readings = @readings.where(toread: true)
       @page_subtitle = ts("Saved For Later")
+    elsif params[:show] == 'kudos'
+      @readings = @readings.joins(work: :kudos, user: :pseuds).where("pseuds.id = kudos.pseud_id")
+      @page_subtitle = ts("With Kudos")
     end
     @readings = @readings.order("last_viewed DESC").page(params[:page])
   end
